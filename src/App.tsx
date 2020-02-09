@@ -4,7 +4,9 @@ import Header from './components/Header/Header';
 import LandingPage from './routes/LandingPage/LandingPage';
 import './App.css';
 
-function App() {
+interface Props {}
+
+const App: React.FC<Props> = () => {
   return (
     <main className="App_main">
       <div className="App">
@@ -18,6 +20,6 @@ function App() {
       </Router>
     </main>
   );
-}
+};
 
 export default App;

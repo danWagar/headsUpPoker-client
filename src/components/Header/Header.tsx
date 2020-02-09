@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function Header() {
+interface Props {}
+
+const Header: React.FC<Props> = () => {
   const renderLogin = () => {
     return (
       <nav>
@@ -16,4 +18,6 @@ export default function Header() {
       {renderLogin()}
     </header>
   );
-}
+};
+
+export default Header;
