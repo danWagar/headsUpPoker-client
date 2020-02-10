@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Input } from '../../components/Form/Form';
 import AuthApiService from '../../services/auth-api-service';
 import TokenService from '../../services/token-service';
+import { AuthContext } from '../../context/AuthContext';
 
 interface Props {
   onLoginSuccess: () => void;
@@ -16,19 +17,13 @@ const Login: React.FC<Props> = props => {
   const [error, setError] = useState<string | null>(null);
   let history = useHistory();
 
+  const { hasToken, setHasToken } = useContext(AuthContext);
+
   const onLoginSuccess = () => {
+    console.log(hasToken);
+    setHasToken(TokenService.hasAuthToken());
+    console.log(hasToken);
     history.push('/dashboard');
-  };
-
-  const handleSubmitBasicAuth = ev => {
-    ev.preventDefault();
-    const { user_name, password } = ev.target;
-
-    TokenService.saveAuthToken(TokenService.makeBasicAuthToken(user_name.value, password.value));
-
-    user_name.value = '';
-    password.value = '';
-    onLoginSuccess();
   };
 
   const handleSubmitJwtAuth = ev => {

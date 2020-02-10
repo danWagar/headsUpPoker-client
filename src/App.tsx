@@ -1,32 +1,30 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import PublicOnlyRoute from './utils/PublicOnlyRoute';
 import PrivateRoute from './utils/PrivateRoute';
 import Header from './components/Header/Header';
-import LandingPage from './routes/LandingPage/LandingPage';
-import Login from './routes/Login/Login';
-import Register from './routes/Register/Register';
-import Dashboard from './routes/Dashboard/Dashboard';
 import './App.css';
+const LandingPage = lazy(() => import('./routes/LandingPage/LandingPage'));
+const Login = lazy(() => import('./routes/Login/Login'));
+const Register = lazy(() => import('./routes/Register/Register'));
+const Dashboard = lazy(() => import('./routes/Dashboard/Dashboard'));
+const Game = lazy(() => import('./routes/Game/Game'));
 
-interface Props {}
-
-const App: React.FC<Props> = () => {
+const App: React.FC = () => {
   return (
     <main className="App_main">
       <div className="App">
         <Header></Header>
       </div>
-
-      <Route>
+      <Suspense fallback={<div>Loading...</div>}>
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <PublicOnlyRoute exact path="/login" component={Login} />
           <PublicOnlyRoute exact path="/register" component={Register} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
-          {/*<PrivateRoute exact path="/game/:id" component={(props) => <Game id={props.match.params.id}} />} */}
+          <PrivateRoute exact path="/game/:id" component={Game} />
         </Switch>
-      </Route>
+      </Suspense>
     </main>
   );
 };

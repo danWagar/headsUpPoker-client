@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
+import { AuthContext } from '../../context/AuthContext';
 
 interface Props {}
 
 const Header: React.FC<Props> = () => {
-  const hasToken = () => {
-    if (TokenService.getAuthToken()) return true;
-    return false;
-  };
-
-  const [loggedIn, setLoggedIn] = useState<boolean>(hasToken());
+  const { hasToken, setHasToken } = useContext(AuthContext);
 
   const handleLogout = () => {
     console.log('handling logout');
     TokenService.clearAuthToken();
-    setLoggedIn(false);
+    setHasToken(TokenService.hasAuthToken());
   };
 
   const renderLogin = () => {
@@ -47,7 +43,7 @@ const Header: React.FC<Props> = () => {
   return (
     <header>
       <h1>Heads Up Poker Tournaments</h1>
-      {loggedIn ? renderLogout() : renderLogin()}
+      {hasToken ? renderLogout() : renderLogin()}
     </header>
   );
 };
