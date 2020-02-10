@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Input } from '../../components/Form/Form';
 import AuthApiService from '../../services/auth-api-service';
 import TokenService from '../../services/token-service';
@@ -13,6 +14,11 @@ const Login: React.FC<Props> = props => {
   };
 
   const [error, setError] = useState<string | null>(null);
+  let history = useHistory();
+
+  const onLoginSuccess = () => {
+    history.push('/dashboard');
+  };
 
   const handleSubmitBasicAuth = ev => {
     ev.preventDefault();
@@ -22,7 +28,7 @@ const Login: React.FC<Props> = props => {
 
     user_name.value = '';
     password.value = '';
-    props.onLoginSuccess();
+    onLoginSuccess();
   };
 
   const handleSubmitJwtAuth = ev => {
@@ -38,7 +44,7 @@ const Login: React.FC<Props> = props => {
         user_name.value = '';
         password.value = '';
         TokenService.saveAuthToken(res.authToken);
-        props.onLoginSuccess();
+        onLoginSuccess();
       })
       .catch(res => {
         setError(res.error);

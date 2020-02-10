@@ -8,6 +8,7 @@ interface PrivateProps extends RouteProps {
 
 const PrivateRoute: React.FC<PrivateProps> = ({ component, ...props }) => {
   const Component = component;
+  console.log('In private route');
   return (
     <Route
       {...props}
