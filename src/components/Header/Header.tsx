@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -6,7 +7,9 @@ const Header: React.FC<Props> = () => {
   const renderLogin = () => {
     return (
       <nav>
-        <button>Login</button>
+        <button>
+          <Link to="/login">Login</Link>
+        </button>
         <button>Register</button>
       </nav>
     );

@@ -1,7 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import PublicOnlyRoute from './utils/PublicOnlyRoute';
+import PrivateRoute from './utils/PrivateRout';
 import Header from './components/Header/Header';
 import LandingPage from './routes/LandingPage/LandingPage';
+import Login from './routes/Login/Login';
+import Register from './routes/Register/Register';
 import './App.css';
 
 interface Props {}
@@ -13,13 +17,16 @@ const App: React.FC<Props> = () => {
         <Header></Header>
       </div>
 
-      <Router>
+      <Route>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <PublicOnlyRoute exact path="/login" component={Login} />
+          <PublicOnlyRoute exact path="/register" component={Register} />
+          {/*<PrivateRoute exact path="/game/:id" component={(props) => <Game id={props.match.params.id}} />} */}
         </Switch>
-      </Router>
+      </Route>
     </main>
   );
 };
 
-export default App;
+export default withRouter(App);
