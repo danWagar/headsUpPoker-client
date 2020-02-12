@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
 import { AuthContext } from '../../context/AuthContext';
+import './Header.css';
 
 interface Props {}
 
@@ -41,7 +42,7 @@ const Header: React.FC<Props> = () => {
   };
 
   return (
-    <header>
+    <header className="Header">
       <h1>Heads Up Poker Tournaments</h1>
       {hasToken ? renderLogout() : renderLogin()}
     </header>

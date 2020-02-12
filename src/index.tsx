@@ -5,6 +5,8 @@ import './index.css';
 import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
 import UserContextProvider from './context/UserContext';
+import './reset.css';
+import './index.css';
 
 ReactDOM.render(
   <Router>
